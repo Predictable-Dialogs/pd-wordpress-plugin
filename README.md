@@ -13,7 +13,7 @@ zip -r predictable-dialogs-wordpress.zip predictable-dialogs -x '*.DS_Store' '*_
 1. WordPress Admin -> `Plugins` -> `Add New` -> `Upload Plugin`
 2. Upload `predictable-dialogs-wordpress.zip`
 3. Activate plugin
-4. Open `Settings` -> `AI Chatbot by PD`
+4. Open `Predictable Dialogs` from the left admin menu
 
 ## Standard widget
 

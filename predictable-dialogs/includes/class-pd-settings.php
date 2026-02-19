@@ -45,12 +45,13 @@ class PD_WP_Settings {
     }
 
     public function register_menu() {
-        add_options_page(
+        add_menu_page(
             __('AI Chatbot Settings', 'pd-ai-chatbot'),
             __('Predictable Dialogs', 'pd-ai-chatbot'),
             'manage_options',
             self::MENU_SLUG,
-            array($this, 'render_settings_page')
+            array($this, 'render_settings_page'),
+            'dashicons-format-chat'
         );
     }
 

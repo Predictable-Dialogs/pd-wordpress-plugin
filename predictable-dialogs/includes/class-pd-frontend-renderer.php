@@ -43,21 +43,21 @@ class PD_WP_Frontend_Renderer {
 <script id="pd-wordpress-agent-loader" type="module">
 import Agent from '<?php echo esc_url(self::EMBED_CDN_URL); ?>';
 
-window.PredictableDialogsAgent = Agent;
-window.PredictableDialogsWordPress = window.PredictableDialogsWordPress || {};
+window.PdAgent = Agent;
+window.PdWordPress = window.PdWordPress || {};
 window.PD = window.PD || {};
 const pdWpUser = <?php echo $user_payload_json; ?>;
-const pdContextVariables = {
+const pdContextVar = {
   user_id: pdWpUser.user_id ?? null,
   user_name: pdWpUser.user_name ?? null,
   user_email: pdWpUser.user_email ?? null,
   user_segments: pdWpUser.user_segments ?? [],
 };
 
-window.PredictableDialogsWordPress.user = pdWpUser;
-window.PredictableDialogsWordPress.contextVariables = pdContextVariables;
+window.PdWordPress.user = pdWpUser;
+window.PdWordPress.contextVariables = pdContextVar;
 window.PD.user = pdWpUser;
-window.PD.contextVariables = pdContextVariables;
+window.PD.contextVariables = pdContextVar;
 
 const pdDefaultUser = {
   user_id: pdWpUser.user_id ?? null,
@@ -66,11 +66,11 @@ const pdDefaultUser = {
   user_segments: pdWpUser.user_segments ?? [],
 };
 
-const pdDefaultContextVariables = {
-  user_id: pdContextVariables.user_id,
-  user_name: pdContextVariables.user_name,
-  user_email: pdContextVariables.user_email,
-  user_segments: pdContextVariables.user_segments,
+const pdDefaultContextVar = {
+  user_id: pdContextVar.user_id,
+  user_name: pdContextVar.user_name,
+  user_email: pdContextVar.user_email,
+  user_segments: pdContextVar.user_segments,
 };
 
 const pdApplyDefaultProps = (props = {}) => {
@@ -81,7 +81,7 @@ const pdApplyDefaultProps = (props = {}) => {
   }
 
   if (!merged.contextVariables) {
-    merged.contextVariables = pdDefaultContextVariables;
+    merged.contextVariables = pdDefaultContextVar;
   }
 
   return merged;
