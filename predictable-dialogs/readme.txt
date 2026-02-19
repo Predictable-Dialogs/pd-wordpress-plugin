@@ -30,6 +30,8 @@ This plugin requires an active Predictable Dialogs account because the chatbot r
 Get started:
 * Website: https://predictabledialogs.com
 * Docs: https://predictabledialogs.com/docs
+* Plugin source code: https://github.com/Predictable-Dialogs/pd-wordpress-plugin
+* Widget source code: https://github.com/Predictable-Dialogs/agent-embed
 
 ### External service disclosure (WordPress.org “Service” requirement)
 
