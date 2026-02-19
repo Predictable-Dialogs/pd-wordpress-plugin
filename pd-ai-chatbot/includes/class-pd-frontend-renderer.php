@@ -28,16 +28,24 @@ class PD_WP_Frontend_Renderer {
             return;
         }
 
-        $request_uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash((string) $_SERVER['REQUEST_URI']) : '/';
+        $request_uri = isset($_SERVER['REQUEST_URI'])
+            ? sanitize_text_field(wp_unslash((string) $_SERVER['REQUEST_URI']))
+            : '/';
         if (PD_WP_Exclusion_Matcher::is_excluded($settings['excluded_pages'], $request_uri)) {
             return;
         }
 
         $user_payload = $this->get_wordpress_user_payload($settings);
-        $user_payload_json = wp_json_encode($user_payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        if ($user_payload_json === false) {
-            $user_payload_json = '{"user_id":null,"user_name":null,"user_email":null,"user_segments":[]}';
-        }
+        $user_payload_json = $this->encode_for_inline_script(
+            $user_payload,
+            array(
+                'user_id' => null,
+                'user_name' => null,
+                'user_email' => null,
+                'user_segments' => array(),
+            )
+        );
+        $snippet_json = $this->encode_for_inline_script($snippet, '');
 
         ?>
 <script id="pd-wordpress-agent-loader" type="module">
@@ -46,7 +54,7 @@ import Agent from '<?php echo esc_url(self::EMBED_CDN_URL); ?>';
 window.PdAgent = Agent;
 window.PdWordPress = window.PdWordPress || {};
 window.PD = window.PD || {};
-const pdWpUser = <?php echo $user_payload_json; ?>;
+const pdWpUser = <?php echo $user_payload_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON literal for inline script. ?>;
 const pdContextVar = {
   user_id: pdWpUser.user_id ?? null,
   user_name: pdWpUser.user_name ?? null,
@@ -97,8 +105,13 @@ if (typeof Agent.initBubble === 'function') {
   Agent.initBubble = (props = {}) => pdOriginalInitBubble(pdApplyDefaultProps(props));
 }
 
+const pdInitSnippet = <?php echo $snippet_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON string literal for inline script. ?>;
+
 try {
-<?php echo $snippet . "\n"; ?>
+  if (pdInitSnippet.trim() !== '') {
+    const pdRunInitSnippet = new Function('Agent', 'PD', 'PdWordPress', 'PdAgent', pdInitSnippet);
+    pdRunInitSnippet(Agent, window.PD, window.PdWordPress, window.PdAgent);
+  }
 } catch (error) {
   console.error('[Predictable Dialogs] Widget initialization failed.', error);
 }
@@ -153,10 +166,15 @@ try {
         }
 
         $user_payload = $this->get_wordpress_user_payload($settings);
-        $user_payload_json = wp_json_encode($user_payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        if ($user_payload_json === false) {
-            $user_payload_json = '{"user_id":null,"user_name":null,"user_email":null,"user_segments":[]}';
-        }
+        $user_payload_json = $this->encode_for_inline_script(
+            $user_payload,
+            array(
+                'user_id' => null,
+                'user_name' => null,
+                'user_email' => null,
+                'user_segments' => array(),
+            )
+        );
 
         ob_start();
         ?>
@@ -164,7 +182,7 @@ try {
 <script type="module">
 import Agent from '<?php echo esc_url(self::EMBED_CDN_URL); ?>';
 
-const pdWpUser = <?php echo $user_payload_json; ?>;
+const pdWpUser = <?php echo $user_payload_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON literal for inline script. ?>;
 
 Agent.initStandard({
   id: <?php echo wp_json_encode($element_id); ?>,
@@ -227,5 +245,25 @@ Agent.initStandard({
             'user_email' => (string) $user->user_email,
             'user_segments' => array_values((array) $user->roles),
         );
+    }
+
+    private function encode_for_inline_script($value, $fallback_value) {
+        $options = JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+
+        if (defined('JSON_INVALID_UTF8_SUBSTITUTE')) {
+            $options |= JSON_INVALID_UTF8_SUBSTITUTE;
+        }
+
+        $encoded = wp_json_encode($value, $options);
+        if ($encoded !== false) {
+            return $encoded;
+        }
+
+        $fallback_encoded = wp_json_encode($fallback_value, $options);
+        if ($fallback_encoded !== false) {
+            return $fallback_encoded;
+        }
+
+        return 'null';
     }
 }

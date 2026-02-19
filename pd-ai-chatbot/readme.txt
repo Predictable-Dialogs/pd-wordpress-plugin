@@ -1,9 +1,9 @@
 === AI Chatbot by PD ===
 Contributors: jaikant@gmail.com jai@predictabledialogs.com 
 Donate link: https://predictabledialogs.com/
-Tags: chatbot, ai chatbot, customer support, documentation, rag chatbot, helpdesk, ai
+Tags: chatbot, ai chatbot, customer support, documentation, rag chatbot
 Requires at least: 6.0
-Tested up to: 6.0
+Tested up to: 6.9
 Stable tag: 0.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
