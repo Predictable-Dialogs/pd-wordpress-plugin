@@ -1,13 +1,10 @@
 
 
-# Internal testing doc
+# AI Chatbot Plugin For WordPress by Predictable Dialogs
 
 ## Generate plugin zip
 
-Run from the `pd-wordpress-plugin` folder:
-
 ```bash
-find predictable-dialogs -name '.DS_Store' -delete
 zip -r predictable-dialogs-wordpress.zip predictable-dialogs -x '*.DS_Store' '*__MACOSX*'
 ```
 
@@ -18,7 +15,7 @@ zip -r predictable-dialogs-wordpress.zip predictable-dialogs -x '*.DS_Store' '*_
 3. Activate plugin
 4. Open `Settings` -> `AI Chatbot by PD`
 
-## Test Standard widget
+## Standard widget
 
 1. In Predictable Dialogs install page, choose `WordPress` + `Standard`
 2. Copy shortcode, for example:
@@ -30,7 +27,7 @@ zip -r predictable-dialogs-wordpress.zip predictable-dialogs -x '*.DS_Store' '*_
 3. Paste shortcode into a WordPress page or post
 4. Open the page and verify widget loads and dimensions are respected
 
-## Test Popup widget
+## Popup widget
 
 1. In install page, choose `WordPress` + `Popup`
 2. Configure popup settings:
@@ -41,7 +38,7 @@ zip -r predictable-dialogs-wordpress.zip predictable-dialogs -x '*.DS_Store' '*_
    - Paste snippet into initialization snippet field
 5. Open site frontend and verify popup appears as configured
 
-## Test Bubble widget
+## Bubble widget
 
 1. In install page, choose `WordPress` + `Bubble`
 2. Configure bubble settings:
