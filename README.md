@@ -1,17 +1,17 @@
 
 
-# AI Chatbot Plugin For WordPress by Predictable Dialogs
+# Predictable Dialogs AI Assistant WordPress Plugin
 
 ## Generate plugin zip
 
 ```bash
-zip -r pd-ai-chatbot-wordpress.zip pd-ai-chatbot -x '*.DS_Store' '*__MACOSX*'
+zip -r predictable-dialogs-ai-assistant-wordpress.zip predictable-dialogs-ai-assistant -x '*.DS_Store' '*__MACOSX*'
 ```
 
 ## Install in WordPress
 
 1. WordPress Admin -> `Plugins` -> `Add New` -> `Upload Plugin`
-2. Upload `pd-ai-chatbot-wordpress.zip`
+2. Upload `predictable-dialogs-ai-assistant-wordpress.zip`
 3. Activate plugin
 4. Open `Predictable Dialogs` from the left admin menu
 
