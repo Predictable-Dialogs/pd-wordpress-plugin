@@ -4,7 +4,7 @@ Donate link: https://predictabledialogs.com/
 Tags: chatbot, ai chatbot, customer support, documentation, rag chatbot
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 0.3.0
+Stable tag: 0.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -95,8 +95,6 @@ Most accuracy issues are related to the content connected to your agent (documen
 
 = 0.1.0 =
 * Initial release: Connect and display a Predictable Dialogs AI chatbot widget on WordPress.
-= 0.2.0 =
 * Rename slug from wordpress review.
-= 0.3.0 =
 * Review comments from wordpress review.
 
