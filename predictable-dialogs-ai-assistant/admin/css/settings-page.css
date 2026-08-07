@@ -1,0 +1,120 @@
+.preddiai-settings-shell {
+  max-width: 900px;
+}
+
+.preddiai-settings-shell > p {
+  max-width: 860px;
+  margin-bottom: 16px;
+}
+
+.preddiai-settings-form .form-table {
+  margin-top: 8px;
+}
+
+.preddiai-settings-form .form-table > tbody > tr > th,
+.preddiai-settings-form .form-table > tbody > tr > td {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  vertical-align: top;
+}
+
+.preddiai-settings-form .form-table > tbody > tr + tr > th,
+.preddiai-settings-form .form-table > tbody > tr + tr > td {
+  border-top: 1px solid #f0f0f1;
+}
+
+.preddiai-settings-form .description {
+  margin-top: 8px;
+}
+
+.preddiai-settings-form .submit {
+  margin-top: 16px;
+}
+
+.preddiai-settings-form .button-primary {
+  transition: box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.preddiai-settings-form .button-primary.preddiai-save-highlight {
+  background: #d63638;
+  border-color: #b32d2e;
+  box-shadow: 0 0 0 3px rgba(214, 54, 56, 0.2);
+}
+
+.preddiai-settings-form .button-primary.preddiai-save-highlight:hover,
+.preddiai-settings-form .button-primary.preddiai-save-highlight:focus {
+  background: #b32d2e;
+  border-color: #8a2424;
+}
+
+.preddiai-code-textarea {
+  min-height: 220px;
+  font-family: Consolas, Monaco, Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.45;
+  background: #f6f7f7;
+}
+
+.preddiai-toggle-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preddiai-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.preddiai-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.preddiai-switch-slider {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #a7aaad;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.preddiai-switch-slider::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.preddiai-switch input:checked + .preddiai-switch-slider {
+  background: #d63638;
+}
+
+.preddiai-switch input:checked + .preddiai-switch-slider::before {
+  transform: translateX(20px);
+}
+
+.preddiai-switch input:focus-visible + .preddiai-switch-slider {
+  outline: 2px solid #d63638;
+  outline-offset: 2px;
+}
+
+.preddiai-toggle-status {
+  font-weight: 600;
+  min-width: 72px;
+}
+
+.preddiai-toggle-status.is-disabled {
+  color: #b32d2e;
+}

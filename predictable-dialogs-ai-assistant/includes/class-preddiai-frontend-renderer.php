@@ -4,12 +4,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class PD_WP_Frontend_Renderer {
+class PREDDIAI_Frontend_Renderer {
     const EMBED_CDN_URL = 'https://cdn.jsdelivr.net/npm/@agent-embed/js@latest/dist/web.js';
 
     public function register_hooks() {
         add_action('wp_footer', array($this, 'render_widget_loader'), 100);
-        add_shortcode('pd', array($this, 'render_standard_shortcode'));
+        add_shortcode('preddiai', array($this, 'render_standard_shortcode'));
     }
 
     public function render_widget_loader() {
@@ -17,7 +17,7 @@ class PD_WP_Frontend_Renderer {
             return;
         }
 
-        $settings = PD_WP_Settings::get_settings();
+        $settings = PREDDIAI_Settings::get_settings();
 
         if (!empty($settings['disable_widget'])) {
             return;
@@ -31,7 +31,7 @@ class PD_WP_Frontend_Renderer {
         $request_uri = isset($_SERVER['REQUEST_URI'])
             ? sanitize_text_field(wp_unslash((string) $_SERVER['REQUEST_URI']))
             : '/';
-        if (PD_WP_Exclusion_Matcher::is_excluded($settings['excluded_pages'], $request_uri)) {
+        if (PREDDIAI_Exclusion_Matcher::is_excluded($settings['excluded_pages'], $request_uri)) {
             return;
         }
 
@@ -48,69 +48,66 @@ class PD_WP_Frontend_Renderer {
         $snippet_json = $this->encode_for_inline_script($snippet, '');
 
         ?>
-<script id="pd-wordpress-agent-loader" type="module">
+<script id="preddiai-agent-loader" type="module">
 import Agent from '<?php echo esc_url(self::EMBED_CDN_URL); ?>';
 
-window.PdAgent = Agent;
-window.PdWordPress = window.PdWordPress || {};
-window.PD = window.PD || {};
-const pdWpUser = <?php echo $user_payload_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON literal for inline script. ?>;
-const pdContextVar = {
-  user_id: pdWpUser.user_id ?? null,
-  user_name: pdWpUser.user_name ?? null,
-  user_email: pdWpUser.user_email ?? null,
-  user_segments: pdWpUser.user_segments ?? [],
+window.PreddiaiAgent = Agent;
+window.Preddiai = window.Preddiai || {};
+const preddiaiWpUser = <?php echo $user_payload_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON literal for inline script. ?>;
+const preddiaiContextVariables = {
+  user_id: preddiaiWpUser.user_id ?? null,
+  user_name: preddiaiWpUser.user_name ?? null,
+  user_email: preddiaiWpUser.user_email ?? null,
+  user_segments: preddiaiWpUser.user_segments ?? [],
 };
 
-window.PdWordPress.user = pdWpUser;
-window.PdWordPress.contextVariables = pdContextVar;
-window.PD.user = pdWpUser;
-window.PD.contextVariables = pdContextVar;
+window.Preddiai.user = preddiaiWpUser;
+window.Preddiai.contextVariables = preddiaiContextVariables;
 
-const pdDefaultUser = {
-  user_id: pdWpUser.user_id ?? null,
-  user_name: pdWpUser.user_name ?? null,
-  user_email: pdWpUser.user_email ?? null,
-  user_segments: pdWpUser.user_segments ?? [],
+const preddiaiDefaultUser = {
+  user_id: preddiaiWpUser.user_id ?? null,
+  user_name: preddiaiWpUser.user_name ?? null,
+  user_email: preddiaiWpUser.user_email ?? null,
+  user_segments: preddiaiWpUser.user_segments ?? [],
 };
 
-const pdDefaultContextVar = {
-  user_id: pdContextVar.user_id,
-  user_name: pdContextVar.user_name,
-  user_email: pdContextVar.user_email,
-  user_segments: pdContextVar.user_segments,
+const preddiaiDefaultContextVariables = {
+  user_id: preddiaiContextVariables.user_id,
+  user_name: preddiaiContextVariables.user_name,
+  user_email: preddiaiContextVariables.user_email,
+  user_segments: preddiaiContextVariables.user_segments,
 };
 
-const pdApplyDefaultProps = (props = {}) => {
+const preddiaiApplyDefaultProps = (props = {}) => {
   const merged = { ...props };
 
   if (!merged.user) {
-    merged.user = pdDefaultUser;
+    merged.user = preddiaiDefaultUser;
   }
 
   if (!merged.contextVariables) {
-    merged.contextVariables = pdDefaultContextVar;
+    merged.contextVariables = preddiaiDefaultContextVariables;
   }
 
   return merged;
 };
 
 if (typeof Agent.initPopup === 'function') {
-  const pdOriginalInitPopup = Agent.initPopup.bind(Agent);
-  Agent.initPopup = (props = {}) => pdOriginalInitPopup(pdApplyDefaultProps(props));
+  const preddiaiOriginalInitPopup = Agent.initPopup.bind(Agent);
+  Agent.initPopup = (props = {}) => preddiaiOriginalInitPopup(preddiaiApplyDefaultProps(props));
 }
 
 if (typeof Agent.initBubble === 'function') {
-  const pdOriginalInitBubble = Agent.initBubble.bind(Agent);
-  Agent.initBubble = (props = {}) => pdOriginalInitBubble(pdApplyDefaultProps(props));
+  const preddiaiOriginalInitBubble = Agent.initBubble.bind(Agent);
+  Agent.initBubble = (props = {}) => preddiaiOriginalInitBubble(preddiaiApplyDefaultProps(props));
 }
 
-const pdInitSnippet = <?php echo $snippet_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON string literal for inline script. ?>;
+const preddiaiInitSnippet = <?php echo $snippet_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON string literal for inline script. ?>;
 
 try {
-  if (pdInitSnippet.trim() !== '') {
-    const pdRunInitSnippet = new Function('Agent', 'PD', 'PdWordPress', 'PdAgent', pdInitSnippet);
-    pdRunInitSnippet(Agent, window.PD, window.PdWordPress, window.PdAgent);
+  if (preddiaiInitSnippet.trim() !== '') {
+    const preddiaiRunInitSnippet = new Function('Agent', 'Preddiai', 'PreddiaiAgent', preddiaiInitSnippet);
+    preddiaiRunInitSnippet(Agent, window.Preddiai, window.PreddiaiAgent);
   }
 } catch (error) {
   console.error('[Predictable Dialogs] Widget initialization failed.', error);
@@ -138,17 +135,17 @@ try {
     public function render_standard_shortcode($atts = array()) {
         $attributes = shortcode_atts(
             array(
-                'pd' => '',
+                'preddiai' => '',
                 'agent' => '',
                 'width' => '100%',
                 'height' => '600px',
             ),
             is_array($atts) ? $atts : array(),
-            'pd'
+            'preddiai'
         );
 
-        $agent_name = isset($attributes['pd']) && $attributes['pd'] !== ''
-            ? $attributes['pd']
+        $agent_name = isset($attributes['preddiai']) && $attributes['preddiai'] !== ''
+            ? $attributes['preddiai']
             : $attributes['agent'];
 
         $agent_name = sanitize_text_field((string) $agent_name);
@@ -158,9 +155,9 @@ try {
 
         $width = $this->sanitize_dimension((string) $attributes['width'], '100%');
         $height = $this->sanitize_dimension((string) $attributes['height'], '600px');
-        $element_id = 'pd-standard-' . wp_unique_id();
+        $element_id = 'preddiai-standard-' . wp_unique_id();
 
-        $settings = PD_WP_Settings::get_settings();
+        $settings = PREDDIAI_Settings::get_settings();
         if (!empty($settings['disable_widget'])) {
             return '';
         }
@@ -182,22 +179,22 @@ try {
 <script type="module">
 import Agent from '<?php echo esc_url(self::EMBED_CDN_URL); ?>';
 
-const pdWpUser = <?php echo $user_payload_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON literal for inline script. ?>;
+const preddiaiWpUser = <?php echo $user_payload_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe JSON literal for inline script. ?>;
 
 Agent.initStandard({
   id: <?php echo wp_json_encode($element_id); ?>,
   agentName: <?php echo wp_json_encode($agent_name); ?>,
   user: {
-    user_id: pdWpUser.user_id ?? null,
-    user_name: pdWpUser.user_name ?? null,
-    user_email: pdWpUser.user_email ?? null,
-    user_segments: pdWpUser.user_segments ?? [],
+    user_id: preddiaiWpUser.user_id ?? null,
+    user_name: preddiaiWpUser.user_name ?? null,
+    user_email: preddiaiWpUser.user_email ?? null,
+    user_segments: preddiaiWpUser.user_segments ?? [],
   },
   contextVariables: {
-    user_id: pdWpUser.user_id ?? null,
-    user_name: pdWpUser.user_name ?? null,
-    user_email: pdWpUser.user_email ?? null,
-    user_segments: pdWpUser.user_segments ?? [],
+    user_id: preddiaiWpUser.user_id ?? null,
+    user_name: preddiaiWpUser.user_name ?? null,
+    user_email: preddiaiWpUser.user_email ?? null,
+    user_segments: preddiaiWpUser.user_segments ?? [],
   },
 });
 </script>

@@ -5,7 +5,7 @@
 ## Generate plugin zip
 
 ```bash
-zip -r predictable-dialogs-ai-assistant-wordpress.zip predictable-dialogs-ai-assistant -x '*.DS_Store' '*__MACOSX*'
+zip -r predictable-dialogs-ai-assistant.zip predictable-dialogs-ai-assistant -x '*.DS_Store' '*__MACOSX*'
 ```
 
 ## Install in WordPress
@@ -21,7 +21,7 @@ zip -r predictable-dialogs-ai-assistant-wordpress.zip predictable-dialogs-ai-ass
 2. Copy shortcode, for example:
 
 ```text
-[pd pd="my-agent-name" width="100%" height="600px"]
+[preddiai agent="my-agent-name" width="100%" height="600px"]
 ```
 
 3. Paste shortcode into a WordPress page or post

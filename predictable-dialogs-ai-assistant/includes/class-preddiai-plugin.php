@@ -4,20 +4,20 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class PD_WP_Plugin {
+class PREDDIAI_Plugin {
     /**
-     * @var PD_WP_Settings
+     * @var PREDDIAI_Settings
      */
     private $settings;
 
     /**
-     * @var PD_WP_Frontend_Renderer
+     * @var PREDDIAI_Frontend_Renderer
      */
     private $frontend_renderer;
 
     public function __construct() {
-        $this->settings = new PD_WP_Settings();
-        $this->frontend_renderer = new PD_WP_Frontend_Renderer();
+        $this->settings = new PREDDIAI_Settings();
+        $this->frontend_renderer = new PREDDIAI_Frontend_Renderer();
     }
 
     public function init() {

@@ -18,18 +18,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PD_WP_PLUGIN_FILE', __FILE__);
-define('PD_WP_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('PD_WP_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('PREDDIAI_PLUGIN_FILE', __FILE__);
+define('PREDDIAI_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('PREDDIAI_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('PREDDIAI_PLUGIN_VERSION', '0.1.0');
 
-require_once PD_WP_PLUGIN_DIR . 'includes/class-pd-settings.php';
-require_once PD_WP_PLUGIN_DIR . 'includes/class-pd-exclusion-matcher.php';
-require_once PD_WP_PLUGIN_DIR . 'includes/class-pd-frontend-renderer.php';
-require_once PD_WP_PLUGIN_DIR . 'includes/class-pd-plugin.php';
+require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-settings.php';
+require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-exclusion-matcher.php';
+require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-frontend-renderer.php';
+require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-plugin.php';
 
-function pd_wp_boot_plugin() {
-    $plugin = new PD_WP_Plugin();
+function preddiai_boot_plugin() {
+    $plugin = new PREDDIAI_Plugin();
     $plugin->init();
 }
 
-pd_wp_boot_plugin();
+preddiai_boot_plugin();

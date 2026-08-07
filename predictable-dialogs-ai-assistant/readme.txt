@@ -1,9 +1,9 @@
 === Predictable Dialogs AI Assistant ===
-Contributors: jaikant@gmail.com jai@predictabledialogs.com 
+Contributors: jai@predictabledialogs.com 
 Donate link: https://predictabledialogs.com/
 Tags: chatbot, ai chatbot, customer support, documentation, rag chatbot
 Requires at least: 6.0
-Tested up to: 6.9
+Tested up to: 7.0
 Stable tag: 0.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -44,9 +44,18 @@ This plugin connects to and embeds content from the following third-party servic
 **Privacy policy:** https://predictabledialogs.com/privacy
 
 What is transmitted to the service?
-* The chatbot widget loads from Predictable Dialogs to render the chat experience on your site.
 * Visitor chat messages and the bot’s responses are processed by Predictable Dialogs (and stored as conversation “sessions” in your Predictable Dialogs dashboard).
 * If you enable the optional “save logged-in user information” setting in this plugin, the plugin will send logged-in WordPress user details along with the chat session so you can view them in the “Sessions” area of the Predictable Dialogs app.
+
+**Predictable Dialogs widget library**
+
+The plugin loads the Predictable Dialogs web widget library (`@agent-embed/js`) through the jsDelivr CDN. This library contains the client-side code that renders the chatbot and connects it to the Predictable Dialogs service.
+
+The widget library is not specific to WordPress. It is the same open-source embed library used to add Predictable Dialogs chatbots to websites and applications outside WordPress. The WordPress plugin provides a convenient WordPress integration for this existing hosted chatbot service.
+
+Widget CDN: https://cdn.jsdelivr.net
+Widget source code: https://github.com/Predictable-Dialogs/agent-embed
+jsDelivr website: https://www.jsdelivr.com
 
 
 ### Branding link

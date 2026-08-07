@@ -4,14 +4,20 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class PD_WP_Settings {
-    const OPTION_NAME = 'pd_ai_chatbot_settings';
-    const SETTINGS_GROUP = 'pd_ai_chatbot_settings_group';
+class PREDDIAI_Settings {
+    const OPTION_NAME = 'preddiai_settings';
+    const SETTINGS_GROUP = 'preddiai_settings_group';
     const MENU_SLUG = 'predictable-dialogs-ai-assistant';
+
+    /**
+     * @var string
+     */
+    private $settings_page_hook = '';
 
     public function register_hooks() {
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_menu', array($this, 'register_menu'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
     }
 
     public static function get_defaults() {
@@ -45,13 +51,36 @@ class PD_WP_Settings {
     }
 
     public function register_menu() {
-        add_menu_page(
+        $this->settings_page_hook = add_menu_page(
             __('Predictable Dialogs AI Assistant Settings', 'predictable-dialogs-ai-assistant'),
             __('Predictable Dialogs', 'predictable-dialogs-ai-assistant'),
             'manage_options',
             self::MENU_SLUG,
             array($this, 'render_settings_page'),
             'dashicons-format-chat'
+        );
+    }
+
+    public function enqueue_admin_assets($hook_suffix) {
+        $fallback_hook = 'toplevel_page_' . self::MENU_SLUG;
+
+        if ($hook_suffix !== $this->settings_page_hook && $hook_suffix !== $fallback_hook) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'preddiai-admin-settings',
+            PREDDIAI_PLUGIN_URL . 'admin/css/settings-page.css',
+            array(),
+            PREDDIAI_PLUGIN_VERSION
+        );
+
+        wp_enqueue_script(
+            'preddiai-admin-settings',
+            PREDDIAI_PLUGIN_URL . 'admin/js/settings-page.js',
+            array(),
+            PREDDIAI_PLUGIN_VERSION,
+            true
         );
     }
 
@@ -99,6 +128,6 @@ class PD_WP_Settings {
         }
 
         $settings = self::get_settings();
-        include PD_WP_PLUGIN_DIR . 'admin/views/settings-page.php';
+        include PREDDIAI_PLUGIN_DIR . 'admin/views/settings-page.php';
     }
 }

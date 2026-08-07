@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class PD_WP_Exclusion_Matcher {
+class PREDDIAI_Exclusion_Matcher {
     public static function is_excluded($excluded_pages, $request_uri) {
         $patterns = self::parse_excluded_patterns($excluded_pages);
         if (empty($patterns)) {
