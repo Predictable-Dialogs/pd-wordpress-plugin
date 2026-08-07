@@ -1,5 +1,5 @@
 === Predictable Dialogs AI Assistant ===
-Contributors: jai@predictabledialogs.com 
+Contributors: jaikant, jai@predictabledialogs.com 
 Donate link: https://predictabledialogs.com/
 Tags: chatbot, ai chatbot, customer support, documentation, rag chatbot
 Requires at least: 6.0
