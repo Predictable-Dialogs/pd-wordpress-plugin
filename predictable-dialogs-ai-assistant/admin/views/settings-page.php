@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$option_name = PREDDIAI_Settings::OPTION_NAME;
-$snippet_placeholder = 'Paste the WordPress initialization snippet here.';
+$preddiai_option_name = PREDDIAI_Settings::OPTION_NAME;
+$preddiai_snippet_placeholder = 'Paste the WordPress initialization snippet here.';
 ?>
 <div class="wrap preddiai-settings-shell">
   <h1><?php esc_html_e('Predictable Dialogs AI Assistant Settings', 'predictable-dialogs-ai-assistant'); ?></h1>
@@ -25,15 +25,15 @@ $snippet_placeholder = 'Paste the WordPress initialization snippet here.';
           <td>
             <textarea
               id="preddiai-snippet"
-              name="<?php echo esc_attr($option_name); ?>[initialization_snippet]"
+              name="<?php echo esc_attr($preddiai_option_name); ?>[initialization_snippet]"
               rows="9"
               cols="80"
               class="large-text code preddiai-code-textarea"
               spellcheck="false"
               autocapitalize="off"
               autocorrect="off"
-              placeholder="<?php echo esc_attr($snippet_placeholder); ?>"
-            ><?php echo esc_textarea($settings['initialization_snippet']); ?></textarea>
+              placeholder="<?php echo esc_attr($preddiai_snippet_placeholder); ?>"
+            ><?php echo esc_textarea($preddiai_settings['initialization_snippet']); ?></textarea>
             <p class="description">
               <?php esc_html_e('Paste the WordPress snippet generated in Predictable Dialogs Install for Bubble or Popup.', 'predictable-dialogs-ai-assistant'); ?>
             </p>
@@ -48,9 +48,9 @@ $snippet_placeholder = 'Paste the WordPress initialization snippet here.';
             <input
               type="text"
               id="preddiai-excluded-pages"
-              name="<?php echo esc_attr($option_name); ?>[excluded_pages]"
+              name="<?php echo esc_attr($preddiai_option_name); ?>[excluded_pages]"
               class="regular-text"
-              value="<?php echo esc_attr($settings['excluded_pages']); ?>"
+              value="<?php echo esc_attr($preddiai_settings['excluded_pages']); ?>"
               placeholder="/app/*, /app?param=*"
             />
             <p class="description">
@@ -73,9 +73,9 @@ $snippet_placeholder = 'Paste the WordPress initialization snippet here.';
               <input
                 type="checkbox"
                 id="preddiai-include-user"
-                name="<?php echo esc_attr($option_name); ?>[include_logged_in_user]"
+                name="<?php echo esc_attr($preddiai_option_name); ?>[include_logged_in_user]"
                 value="1"
-                <?php checked(!empty($settings['include_logged_in_user'])); ?>
+                <?php checked(!empty($preddiai_settings['include_logged_in_user'])); ?>
               />
               <?php esc_html_e('Pass logged-in user data to the widget as Preddiai.user', 'predictable-dialogs-ai-assistant'); ?>
             </label>
@@ -95,9 +95,9 @@ $snippet_placeholder = 'Paste the WordPress initialization snippet here.';
                 <input
                   type="checkbox"
                   id="preddiai-disable-widget"
-                  name="<?php echo esc_attr($option_name); ?>[disable_widget]"
+                  name="<?php echo esc_attr($preddiai_option_name); ?>[disable_widget]"
                   value="1"
-                  <?php checked(!empty($settings['disable_widget'])); ?>
+                  <?php checked(!empty($preddiai_settings['disable_widget'])); ?>
                 />
                 <span class="preddiai-switch-slider" aria-hidden="true"></span>
               </label>

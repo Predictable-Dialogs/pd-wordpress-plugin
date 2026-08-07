@@ -11,7 +11,7 @@ zip -r predictable-dialogs-ai-assistant.zip predictable-dialogs-ai-assistant -x 
 ## Install in WordPress
 
 1. WordPress Admin -> `Plugins` -> `Add New` -> `Upload Plugin`
-2. Upload `predictable-dialogs-ai-assistant-wordpress.zip`
+2. Upload `predictable-dialogs-ai-assistant.zip`
 3. Activate plugin
 4. Open `Predictable Dialogs` from the left admin menu
 

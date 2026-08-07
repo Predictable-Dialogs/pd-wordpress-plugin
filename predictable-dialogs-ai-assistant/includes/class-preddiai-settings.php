@@ -127,7 +127,7 @@ class PREDDIAI_Settings {
             return;
         }
 
-        $settings = self::get_settings();
+        $preddiai_settings = self::get_settings();
         include PREDDIAI_PLUGIN_DIR . 'admin/views/settings-page.php';
     }
 }
