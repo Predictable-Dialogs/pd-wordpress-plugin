@@ -23,7 +23,16 @@ define('PREDDIAI_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('PREDDIAI_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('PREDDIAI_PLUGIN_VERSION', '0.1.0');
 
+if (!defined('PREDDIAI_APP_URL')) {
+    define('PREDDIAI_APP_URL', 'https://predictabledialogs.com');
+}
+
+if (!defined('PREDDIAI_API_URL')) {
+    define('PREDDIAI_API_URL', 'https://app.predictabledialogs.com');
+}
+
 require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-settings.php';
+require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-auth.php';
 require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-exclusion-matcher.php';
 require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-frontend-renderer.php';
 require_once PREDDIAI_PLUGIN_DIR . 'includes/class-preddiai-plugin.php';

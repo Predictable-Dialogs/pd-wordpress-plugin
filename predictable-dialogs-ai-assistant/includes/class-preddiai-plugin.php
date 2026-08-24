@@ -11,17 +11,24 @@ class PREDDIAI_Plugin {
     private $settings;
 
     /**
+     * @var PREDDIAI_Auth
+     */
+    private $auth;
+
+    /**
      * @var PREDDIAI_Frontend_Renderer
      */
     private $frontend_renderer;
 
     public function __construct() {
         $this->settings = new PREDDIAI_Settings();
+        $this->auth = new PREDDIAI_Auth();
         $this->frontend_renderer = new PREDDIAI_Frontend_Renderer();
     }
 
     public function init() {
         $this->settings->register_hooks();
+        $this->auth->register_hooks();
         $this->frontend_renderer->register_hooks();
     }
 }
