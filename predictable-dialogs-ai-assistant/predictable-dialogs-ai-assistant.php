@@ -3,7 +3,7 @@
  * Plugin Name: Predictable Dialogs AI Assistant
  * Plugin URI: https://predictabledialogs.com
  * Description: Add an AI chatbot to your WordPress site that instantly answers visitor questions from your documentation.
- * Version: 1.0.0
+ * Version: 2.0.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: jai@predictabledialogs.com
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 define('PREDDIAI_PLUGIN_FILE', __FILE__);
 define('PREDDIAI_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('PREDDIAI_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('PREDDIAI_PLUGIN_VERSION', '0.1.0');
+define('PREDDIAI_PLUGIN_VERSION', '2.0.0');
 
 if (!defined('PREDDIAI_APP_URL')) {
     define('PREDDIAI_APP_URL', 'https://predictabledialogs.com');
