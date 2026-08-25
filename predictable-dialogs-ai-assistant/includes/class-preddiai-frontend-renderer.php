@@ -138,16 +138,30 @@ try {
             return $content;
         }
 
-        if (!is_singular('page') || !in_the_loop() || !is_main_query()) {
+        if ($this->standard_widget_rendered) {
             return $content;
         }
 
-        if (has_shortcode($content, 'preddiai')) {
+        if (!in_the_loop() || !is_main_query()) {
             return $content;
         }
 
         $settings = PREDDIAI_Settings::get_settings();
         if (!empty($settings['disable_widget'])) {
+            return $content;
+        }
+
+        $mode = isset($settings['standard_placement_mode']) ? (string) $settings['standard_placement_mode'] : 'all_pages';
+        $content_position = isset($settings['standard_content_position']) ? (string) $settings['standard_content_position'] : 'below_content';
+        $is_singular_page = is_singular('page');
+        if (!$is_singular_page) {
+            $is_home_or_front = is_home() || is_front_page();
+            if (!$is_home_or_front || $mode !== 'all_pages' || $content_position !== 'above_content') {
+                return $content;
+            }
+        }
+
+        if (has_shortcode($content, 'preddiai')) {
             return $content;
         }
 
@@ -165,7 +179,6 @@ try {
             return $content;
         }
 
-        $mode = isset($settings['standard_placement_mode']) ? (string) $settings['standard_placement_mode'] : 'all_pages';
         if ($mode === 'manual') {
             return $content;
         }
@@ -192,7 +205,6 @@ try {
             return $content;
         }
 
-        $content_position = isset($settings['standard_content_position']) ? (string) $settings['standard_content_position'] : 'below_content';
         if ($content_position === 'above_content') {
             return $standard_widget . "\n\n" . $content;
         }
@@ -207,6 +219,11 @@ try {
 
         $mode = isset($settings['standard_placement_mode']) ? (string) $settings['standard_placement_mode'] : 'all_pages';
         if ($mode !== 'all_pages') {
+            return;
+        }
+
+        $content_position = isset($settings['standard_content_position']) ? (string) $settings['standard_content_position'] : 'below_content';
+        if ($content_position === 'above_content') {
             return;
         }
 
