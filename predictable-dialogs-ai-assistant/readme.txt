@@ -4,7 +4,7 @@ Donate link: https://predictabledialogs.com/
 Tags: chatbot, ai chatbot, customer support, documentation, rag chatbot
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -104,3 +104,6 @@ Most accuracy issues are related to the content connected to your agent (documen
 = 2.0.0 =
 * New connection and configuration flow.
 * Improved agent connection/update experience.
+
+= 2.0.1 =
+* Fix Standard widget placement so above-content placement for all pages
